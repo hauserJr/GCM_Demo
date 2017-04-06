@@ -1,0 +1,35 @@
+﻿@using GCM_Sender.Models;
+@model gcmModels
+
+@{
+    var gcm_select = Model.UserInfoSelectItem;
+    ViewBag.Title = "UserPage";
+}
+<h2>GCM_Sender</h2>
+<form name="form1">
+    @Html.Label("請選擇用戶名稱")
+    @Html.DropDownList("gcm_user", gcm_select)
+    <p></p>
+    @Html.Label("請輸入發送內容(最多50個字元)")
+    <textarea class="form-control" id="gcm_message" name="gcm_message" required maxlength="50" minlength="1"></textarea>
+    <p></p>
+    <button type="button" class="btn btn-success" onclick="ToDo_Sender()">送出</button>
+</form>
+
+<script>
+    function ToDo_Sender() {
+        console.log("test");
+        var data = $("form").serialize();
+        $.ajax({
+            url: 'ToDoSender',
+            data: data,
+            type: 'post',
+            dataType: 'Json',
+            success: function (res) {
+                alert(JSON.stringify(res["Message"]));
+            },
+        });
+    }
+</script>
+
+
